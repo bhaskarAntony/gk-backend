@@ -9,7 +9,7 @@ const registrationRoutes = require('./routes/registrationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
-const PORT =  5000;
+const PORT =  3000;
 
 // Middleware
 app.use(cors());
