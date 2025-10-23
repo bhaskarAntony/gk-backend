@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 
 const sendRegistrationEmail = async (userEmail, registrationData) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER || 'your-email@gmail.com',
+    from: "kodaginaganesh@gmail.com",
     to: userEmail,
     subject: 'Registration Confirmation - BVB College Y2K Silver Jubilee Event',
     html: `
@@ -52,10 +52,10 @@ const sendRegistrationEmail = async (userEmail, registrationData) => {
 };
 
 const sendAdminNotification = async (registrationData) => {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@bvbcet.edu';
+  const adminEmail = "kodaginaganesh@gmail.com";
   
   const mailOptions = {
-    from: process.env.EMAIL_USER || 'your-email@gmail.com',
+    from:"kodaginaganesh@gmail.com",
     to: adminEmail,
     subject: 'New Registration - BVB Y2K Event',
     html: `
@@ -80,7 +80,7 @@ const sendAdminNotification = async (registrationData) => {
 
 const sendVerificationEmail = async (userEmail, verificationData) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER || 'your-email@gmail.com',
+    from: "kodaginaganesh@gmail.com",
     to: userEmail,
     subject: 'Registration Verified - BVB College Y2K Event',
     html: `
