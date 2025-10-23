@@ -33,10 +33,10 @@ mongoose.connect(MONGODB_URI, {
 app.use('/api/registration', registrationRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Serve HTML pages
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
-});
+// // Serve HTML pages
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/index.html'));
+// });
 
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/admin.html'));
