@@ -1,16 +1,30 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
   auth: {
-    user: "kodaginaganesh@gmail.com",
-    pass: "dryuzaasyyglwnxd"
+    user: 'kodaginaganesh@gmail.com',
+    pass: 'dryuzaasyyglwnxd'
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+// Verify transporter
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('SMTP connection error:', error);
+  } else {
+    console.log('SMTP connection verified:', success);
   }
 });
 
 const sendRegistrationEmail = async (userEmail, registrationData) => {
   const mailOptions = {
-    from: "kodaginaganesh@gmail.com",
+    from: '"BVB College Y2K Event Team" <kodaginaganesh@gmail.com>',
     to: userEmail,
     subject: 'Registration Confirmation - BVB College Y2K Silver Jubilee Event',
     html: `
@@ -48,15 +62,20 @@ const sendRegistrationEmail = async (userEmail, registrationData) => {
     `
   };
 
-  return transporter.sendMail(mailOptions);
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Registration email sent:', info);
+    return info;
+  } catch (error) {
+    console.error('Error sending registration email:', error);
+    throw error;
+  }
 };
 
 const sendAdminNotification = async (registrationData) => {
-  const adminEmail = "kodaginaganesh@gmail.com";
-  
   const mailOptions = {
-    from:"kodaginaganesh@gmail.com",
-    to: adminEmail,
+    from: '"BVB College Y2K Event Team" <kodaginaganesh@gmail.com>',
+    to: 'gifthempersforme@gmail.com', // Use a different email to avoid self-sending issues
     subject: 'New Registration - BVB Y2K Event',
     html: `
       <div style="font-family: Arial, sans-serif;">
@@ -75,12 +94,19 @@ const sendAdminNotification = async (registrationData) => {
     `
   };
 
-  return transporter.sendMail(mailOptions);
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Admin notification sent:', info);
+    return info;
+  } catch (error) {
+    console.error('Error sending admin notification:', error);
+    throw error;
+  }
 };
 
 const sendVerificationEmail = async (userEmail, verificationData) => {
   const mailOptions = {
-    from: "kodaginaganesh@gmail.com",
+    from: '"BVB College Y2K Event Team" <kodaginaganesh@gmail.com>',
     to: userEmail,
     subject: 'Registration Verified - BVB College Y2K Event',
     html: `
@@ -103,7 +129,14 @@ const sendVerificationEmail = async (userEmail, verificationData) => {
     `
   };
 
-  return transporter.sendMail(mailOptions);
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Verification email sent:', info);
+    return info;
+  } catch (error) {
+    console.error('Error sending verification email:', error);
+    throw error;
+  }
 };
 
 module.exports = {
